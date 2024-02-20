@@ -1,0 +1,207 @@
+:root {
+  --main-color: #1D2B37;
+  --alternative-color-1: #E87140;
+  --alternative-color-2: #FFFFFF;
+  --alternative-color-3: #232127;
+  --alternative-color-4: #232127b2;
+  --title-font: 'Lato', 'sans-serif';
+  --text-font:'Raleway','sans-serif';
+}
+
+html, body{
+  height: 100%;
+  margin: 0;
+}
+
+body{
+  font-family: var(--title-font);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.webgl{
+  display: none;
+}
+
+/* Header section */
+.o-header{
+  display: flex;
+  position: fixed;
+  color: var(--alternative-color-2);
+  top: 0;
+  width: 100%;
+  z-index: 2;
+  height: 3rem;
+  margin: 0;
+  padding: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  transition: 1000ms;
+}
+.o-header:hover{
+  background-color: var(--alternative-color-4);
+}
+.o-header h2{
+  margin-left: 0.625rem;
+}
+.o-optionsBtns{
+  display: flex;
+  margin: 0 0.625rem 0 0; 
+}
+.o-sound{
+  display: flex;
+  align-items: center;
+}
+.o-volumeSlider{
+  display: none;
+  -webkit-appearance: none;
+  width: 6rem;
+  height: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: rgba(219, 219, 219, 0.658);
+  transition: 1000ms;
+}
+.o-volumeSlider::-webkit-slider-thumb{
+  -webkit-appearance: none;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background-color:var(--alternative-color-1);
+  cursor: pointer;
+}
+.o-close, .o-crcButton{
+  margin: 0 0 0 1rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: var(--alternative-color-2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--alternative-color-1);
+  transition: 100ms;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.o-close:hover, .o-crcButton:hover{
+  color: var(--alternative-color-2);
+  background-color: var(--alternative-color-1);
+  transform: scale(1.2);
+  cursor: pointer;
+}
+/* Header section end */
+
+/* Loading screen section*/
+.o-landing{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--alternative-color-3);
+}
+.o-loadingContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.o-loader{
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  border: 0.5rem solid #F5F5F5;
+  border-top: 0.5rem solid var(--alternative-color-1);
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin{
+  0%{transform: rotate(0deg);}
+  100%{transform: rotate(360deg);}
+}
+/* Loading screen section end*/
+
+/* Controls information */
+.o-controlsInfo{
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  background-color: var(--alternative-color-4);
+  color: var(--alternative-color-2);
+  border-radius: 0.25rem;
+  padding: 1rem;
+  width: 45rem;
+  height: 10rem;
+  font-family: var(--text-font);
+  position: absolute;
+  bottom: 10%;
+  z-index: 1;
+  animation: showControls 10s ease-in-out;
+}
+.o-controlsInfo p{
+  margin: 0 0.5rem;
+}
+.o-keysInfo{
+  border-right: 1px solid var(--alternative-color-2);
+  padding: 0 0.5rem 0 0;
+}
+.o-keyOptions, .o-keys{
+  display: flex;
+}
+.o-keyOptions{
+  justify-content: space-between;
+  margin: 1rem 0 0 0;
+}
+.o-key{
+  min-width: 2.5rem;
+  height: 2.5rem;
+  border: 2px solid var(--alternative-color-2);
+  border-radius: 0.25rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5rem 0.25rem;
+  font-size: 1.2rem;
+}
+.o-keys{
+  align-items: flex-end;
+}
+@keyframes showControls {
+  0%{opacity: 0;}
+  25%{opacity: 1;}
+  75%{opacity: 1;}
+  100%{opacity: 0;}
+  /* 50%{transform: translateY(100%);} */
+}
+.o-mouseMove{
+  margin: 1rem 0 0 0;
+  padding: 1rem 1rem 0 1rem;
+  display: flex;
+  justify-content: center;
+}
+.o-mouseIcon{
+  animation: move 1.5s infinite alternate ease-in-out;
+  position: relative;
+}
+@keyframes move{
+  0%{left: -2rem}
+  100%{left: 2rem}
+}
+/* Controls information end */
+
+
