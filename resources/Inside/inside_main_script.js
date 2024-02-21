@@ -8,7 +8,7 @@ let defaultValue = false;
 let controlsInfo = null;
 let names = document.getElementById("studentName");
 let url = sessionStorage.getItem("url");
-const domain = "https://sem-exp.netlify.app";
+const domain = "https://teal-starship-497f53.netlify.app";
 
 /**
  * Función que permite configurar el nombre del usuario en el Header.
