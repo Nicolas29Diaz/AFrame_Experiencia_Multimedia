@@ -35,6 +35,7 @@ let isVideoSoundPlaying = false;
 let videoVolumeVal = null;
 let videoSoundDefaultValue = false;
 const domain = "https://teal-starship-497f53.netlify.app";
+// const domain = "http://localhost:3000";
 
 /** Constantes para identificar los productos */
 const REFRESCOS = "Refrescos";
@@ -43,17 +44,7 @@ const BARRA_CHOCOLATE = "Barra de chocolate";
 const BARRA_JABON = "Barra de jabon";
 const PITILLOS = "Pitillos";
 
-
-/**
- * Objeto que permite definir la url del video dependiendo del producto
- */
-const videoConstants = {
-  [BARRA_CHOCOLATE]: "resources/Videos/Barra_chocolate.mp4",
-  [BARRA_JABON]: "resources/Videos/Barra_jabon.mp4",
-  [BOLSA_ARROZ]: "resources/Videos/Bolsa_arroz.mp4",
-  [PITILLOS]: "resources/Videos/Pitillos.mp4",
-  [REFRESCOS]: "resources/Videos/Refrescos.mp4",
-};
+let videoURL = "";
 
 /**
  * Función del boton "Volver" que permite indicarle a la ventana padre que el usuario no desea iniciar el entorno
@@ -77,15 +68,20 @@ window.onload = function () {
 window.addEventListener("message", (e) => {
   if (e.origin !== domain) return;
   infoPractice = JSON.parse(e.data);
+
+  console.log("DATA:");
+  console.log(infoPractice);
+  videoURL = infoPractice.urlVideo;
+
   names.innerHTML = `Ing. ${infoPractice.estudiante}`;
   practiceName.innerHTML = `Bienvenido ingenier@, el día de hoy la práctica se llama ${infoPractice.nombre}`;
   sessionStorage.setItem("userName", infoPractice.estudiante);
   url = infoPractice.url;
   sessionStorage.setItem("url", url);
   practiceName.innerHTML = `Bienvenido ingenier@, el día de hoy la práctica se llama ${infoPractice.nombre}`;
-  if(infoPractice.corte === 1){
+  if (infoPractice.corte === 1) {
     showDisplay = [1, 0, 0, 0];
-  }else{
+  } else {
     showDisplay = [1, 0, 0];
   }
 });
@@ -126,9 +122,11 @@ function nextText() {
  * visualización se agregan los controles para que el usuario pueda avanzar o retroceder el video a su disposición.
  */
 function openVideo(e) {
-  let product = videoConstants[infoPractice.producto];
-  video.src = product;
-  infoPractice.producto === REFRESCOS ? (videoContainer.style.width = "40rem") : "";
+  // let product = videoConstants[infoPractice.producto];
+  video.src = videoURL;
+  infoPractice.producto === REFRESCOS
+    ? (videoContainer.style.width = "40rem")
+    : "";
   modal.style.display = "block";
   if (isFirstTimePlaying == false) {
     video.removeAttribute("autoplay", "");
@@ -279,19 +277,17 @@ function hide() {
   setTimeout(() => {
     controlsInfo.style.display = "none";
     instruction.style.display = "flex";
-    hideInstruction()
+    hideInstruction();
   }, 5000);
-  
 }
 
 /**
  * Función que remueve las instrucciones de la interfaz despues de 5 segundos
  */
- function hideInstruction() {
+function hideInstruction() {
   setTimeout(() => {
     instruction.style.display = "none";
   }, 5000);
-  
 }
 
 /**
@@ -354,7 +350,12 @@ function updateSound(e) {
     turnSoundOff = false;
   }
 
-  if (isPlaying == false && sound.volume == 0 && defaultValue == false && turnSoundOff == false) {
+  if (
+    isPlaying == false &&
+    sound.volume == 0 &&
+    defaultValue == false &&
+    turnSoundOff == false
+  ) {
     sound.volume = volumeVal / 100;
     volumeBar.value = volumeVal;
     if (sound.volume <= 0.5 && sound.volume >= 0) {
@@ -363,19 +364,34 @@ function updateSound(e) {
       soundIcon.innerHTML = "volume_up";
     }
     isPlaying = true;
-  } else if (isPlaying == true && sound.volume != 0 && defaultValue == false && turnSoundOff == true) {
+  } else if (
+    isPlaying == true &&
+    sound.volume != 0 &&
+    defaultValue == false &&
+    turnSoundOff == true
+  ) {
     sound.volume = 0;
     volumeVal = volumeBar.value;
     volumeBar.value = 0;
     soundIcon.innerHTML = "volume_off";
     isPlaying = false;
-  } else if (isPlaying == true && sound.volume != 0 && defaultValue == false && turnSoundOff == false) {
+  } else if (
+    isPlaying == true &&
+    sound.volume != 0 &&
+    defaultValue == false &&
+    turnSoundOff == false
+  ) {
     sound.volume = 0;
     volumeVal = volumeBar.value;
     volumeBar.value = 0;
     soundIcon.innerHTML = "volume_off";
     isPlaying = false;
-  } else if (isPlaying == false && sound.volume == 0 && defaultValue == true && turnSoundOff == false) {
+  } else if (
+    isPlaying == false &&
+    sound.volume == 0 &&
+    defaultValue == true &&
+    turnSoundOff == false
+  ) {
     sound.volume = 0.2;
     volumeBar.value = sound.volume * 100;
     soundIcon.innerHTML = "volume_up";
@@ -421,7 +437,11 @@ if (video) {
  * Función que permite actualizar el volumen del video
  */
 function updateVideoSound() {
-  if (isVideoSoundPlaying == false && video.volume == 0 && videoSoundDefaultValue == false) {
+  if (
+    isVideoSoundPlaying == false &&
+    video.volume == 0 &&
+    videoSoundDefaultValue == false
+  ) {
     video.volume = videoVolumeVal / 100;
     videoVolumeBar.value = videoVolumeVal;
     if (video.volume <= 0.5 && video.volume >= 0) {
@@ -430,13 +450,21 @@ function updateVideoSound() {
       videoSoundIcon.innerHTML = "volume_up";
     }
     isVideoSoundPlaying = true;
-  } else if (isVideoSoundPlaying == true && video.volume != 0 && videoSoundDefaultValue == false) {
+  } else if (
+    isVideoSoundPlaying == true &&
+    video.volume != 0 &&
+    videoSoundDefaultValue == false
+  ) {
     video.volume = 0;
     videoVolumeVal = videoVolumeBar.value;
     videoVolumeBar.value = 0;
     videoSoundIcon.innerHTML = "volume_off";
     isVideoSoundPlaying = false;
-  } else if (isVideoSoundPlaying == false && video.volume == 0 && videoSoundDefaultValue == true) {
+  } else if (
+    isVideoSoundPlaying == false &&
+    video.volume == 0 &&
+    videoSoundDefaultValue == true
+  ) {
     video.volume = 0.5;
     videoVolumeBar.value = video.volume * 100;
     videoSoundIcon.innerHTML = "volume_up";

@@ -8,7 +8,9 @@ let defaultValue = false;
 let controlsInfo = null;
 let names = document.getElementById("studentName");
 let url = sessionStorage.getItem("url");
+
 const domain = "https://teal-starship-497f53.netlify.app";
+// const domain = "http://localhost:3000";
 
 /**
  * Función que permite configurar el nombre del usuario en el Header.
